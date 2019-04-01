@@ -195,6 +195,7 @@
 
         var checkedNodeCurrentSet = new Set();   
         var solution;
+        var helpOn = true;
 
         function main() {
 
@@ -320,65 +321,106 @@
            
           
 
-            
-            if (originNode>=0) {
+            if (helpOn) {
+                if (originNode>=0) {
 
-                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);    
+                    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);    
+
+                    ctx.textAlign = 'center';
+
+
+                    ctx.textBaseline = "top";
+                    //ctx.font = "50px '맑은 고딕'";        
+                    //ctx.fillStyle = "rgba(255,255,255,1)";                
+                    //ctx.fillText(nodeData[originNode].ln+"/"+nodeData[originNode].nm, scrW/2,scrH/20);
+                    ctx.font = "bold 40px '맑은 고딕'";        
+                    ctx.fillStyle = "rgba(220,220,220,1)";
+                    ctx.fillText("수도권 지하철 시간 거리 지도 ver 0.9", scrW/2,30);
+                    ctx.font = "bold 20px '맑은 고딕'";  
+                    ctx.fillStyle = "rgba(150,150,150,1)";
+                    ctx.fillText("출발역으로부터 30 /60 /90 /120분 권역", scrW/2,80);
+
+                    ctx.font = "30px '맑은 고딕'";  
+                    ctx.fillStyle = "rgba(200,200,200,1)";
+                    ctx.fillText("←  "+groupData[drawGroup]+"  →", scrW/2, 120);
+
+
+                    ctx.textBaseline = "bottom";
+                    ctx.textAlign = 'left';
+                    
+
+                    ctx.font = "15px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(200,200,200,1)";
+                    ctx.fillText("*. 키보드 h 키를 눌러서 아래 설명을 숨길 수 있습니다.",15, scrH-200); 
+
+                    ctx.font = "20px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(150,150,150,1)";
+                    ctx.fillText("마우스를 역 근처로 옮기면 해당 역을 출발점으로 둔 시간거리지도를 볼 수 있습니다",15, scrH-170); 
+
+                    ctx.font = "20px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(150,150,150,1)";
+                    ctx.fillText("마우스로 역을 클릭하여 소요시간이 표시되는 여러 개의 목적지를 설정할 수 있습니다." ,15, scrH-145); 
+
+                    //ctx.font = "20px '맑은 고딕'";
+                    //ctx.fillStyle = "rgba(150,150,150,1)";
+                    //ctx.fillText("한 곳의 출발지로부터 다수의 목적지까지 소요시간을 보여줍니다." ,15, scrH-120); 
+
+                    ctx.font = "20px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(150,150,150,1)";
+                    ctx.fillText("마우스로 선택한 역을 다시 클릭하면 취소할 수 있습니다. 키보드 r 키로 전체 역을 취소할 수 있습니다" ,15, scrH-120); 
+
+                    ctx.font = "20px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(150,150,150,1)";
+                    ctx.fillText("마우스 휠버튼으로 화면을 확대축소하거나 움직일 수 있습니다(zoom&pan)" ,15, scrH-85); 
+
+                    ctx.font = "20px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(150,150,150,1)";
+                    ctx.fillText("키보드 좌우 화살표키를 눌러 건설 예정 노선이 반영된 시간 거리 지도를 볼 수 있습니다" ,15, scrH-60); 
+
+                    ctx.font = "14px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(150,150,150,1)";
+                    ctx.fillText("*. 건설 예정 시기는 정확하지 않을 수 있습니다. 타당성 조사중이거나 건설 여부가 불투명한 노선도 포함되어 있습니다." ,15, scrH-45); 
+
+                    ctx.font = "20px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(150,150,150,1)";
+                    ctx.fillText("https://www.vw-lab.com/65" ,15, scrH-20); 
+
+
+                    ctx.font = "bold 30px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(255,255,255,1)";
+                    ctx.fillText(nodeData[originNode].ln+"/"+nodeData[originNode].nm
+                                    , (nodeData[originNode].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
+                                    ,  (nodeData[originNode].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
+
+
+
+                    checkedNodeCurrentSet.forEach((value, key, s) => {
+                    ctx.font = "bold 20px '맑은 고딕'";
+                    ctx.fillStyle = "rgba(255,255,255,1)";
+                    ctx.fillText(nodeData[value].nm + " | "+ Math.floor(solution[value]/60) +"분"
+                                    , (nodeData[value].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
+                                    ,  (nodeData[value].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
+
+                    //console.log(value +" | " + nodeData[value].nm + "|"+ solution[value] );
+                    });
+                }
+
+            }
+            else {
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);  
 
                 ctx.textAlign = 'center';
-
-
                 ctx.textBaseline = "top";
-                //ctx.font = "50px '맑은 고딕'";        
-                //ctx.fillStyle = "rgba(255,255,255,1)";                
-                //ctx.fillText(nodeData[originNode].ln+"/"+nodeData[originNode].nm, scrW/2,scrH/20);
-                ctx.font = "bold 40px '맑은 고딕'";        
-                ctx.fillStyle = "rgba(220,220,220,1)";
-                ctx.fillText("수도권 지하철 시간 거리 지도 ver 0.9", scrW/2,30);
-                ctx.font = "bold 20px '맑은 고딕'";  
-                ctx.fillStyle = "rgba(150,150,150,1)";
-                ctx.fillText("출발역으로부터 30 /60 /90 /120분 권역", scrW/2,80);
-
                 ctx.font = "30px '맑은 고딕'";  
                 ctx.fillStyle = "rgba(200,200,200,1)";
-                ctx.fillText("←  "+groupData[drawGroup]+"  →", scrW/2, 120);
+                ctx.fillText("←  "+groupData[drawGroup]+"  →", scrW/2, 30);
 
 
                 ctx.textBaseline = "bottom";
                 ctx.textAlign = 'left';
-                
-                ctx.font = "20px '맑은 고딕'";
-                ctx.fillStyle = "rgba(150,150,150,1)";
-                ctx.fillText("마우스를 역 근처로 옮기면 해당 역을 출발점으로 둔 시간거리지도를 볼 수 있습니다",15, scrH-170); 
-
-                ctx.font = "20px '맑은 고딕'";
-                ctx.fillStyle = "rgba(150,150,150,1)";
-                ctx.fillText("마우스로 역을 클릭하여 소요시간이 표시되는 여러 개의 목적지를 설정할 수 있습니다." ,15, scrH-145); 
-
-                //ctx.font = "20px '맑은 고딕'";
-                //ctx.fillStyle = "rgba(150,150,150,1)";
-                //ctx.fillText("한 곳의 출발지로부터 다수의 목적지까지 소요시간을 보여줍니다." ,15, scrH-120); 
-
-                ctx.font = "20px '맑은 고딕'";
-                ctx.fillStyle = "rgba(150,150,150,1)";
-                ctx.fillText("마우스로 선택한 역을 다시 클릭하면 취소할 수 있습니다. 키보드 r 키로 전체 역을 취소할 수 있습니다" ,15, scrH-120); 
-
-                ctx.font = "20px '맑은 고딕'";
-                ctx.fillStyle = "rgba(150,150,150,1)";
-                ctx.fillText("마우스 휠버튼으로 화면을 확대축소하거나 움직일 수 있습니다(zoom&pan)" ,15, scrH-85); 
-
-                ctx.font = "20px '맑은 고딕'";
-                ctx.fillStyle = "rgba(150,150,150,1)";
-                ctx.fillText("키보드 좌우 화살표키를 눌러 건설 예정 노선이 반영된 시간 거리 지도를 볼 수 있습니다" ,15, scrH-60); 
-
-                ctx.font = "14px '맑은 고딕'";
-                ctx.fillStyle = "rgba(150,150,150,1)";
-                ctx.fillText("*. 건설 예정 시기는 정확하지 않을 수 있습니다. 타당성 조사중이거나 건설 여부가 불투명한 노선도 포함되어 있습니다." ,15, scrH-45); 
-
-                ctx.font = "20px '맑은 고딕'";
-                ctx.fillStyle = "rgba(150,150,150,1)";
-                ctx.fillText("https://www.vw-lab.com/65" ,15, scrH-20); 
-
+                ctx.font = "15px '맑은 고딕'";
+                ctx.fillStyle = "rgba(200,200,200,1)";
+                ctx.fillText("'h' key : 도움말",15, scrH-20); 
 
                 ctx.font = "bold 30px '맑은 고딕'";
                 ctx.fillStyle = "rgba(255,255,255,1)";
@@ -395,12 +437,8 @@
                                 , (nodeData[value].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
                                 ,  (nodeData[value].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
 
-                //console.log(value +" | " + nodeData[value].nm + "|"+ solution[value] );
-                });
+                            });
             }
-
-
-            
 
 
            
@@ -1095,7 +1133,7 @@
 
         function keydown(e) {
 
-            //console.log("keyCode :"+e.keyCode);
+            console.log("keyCode :"+e.keyCode);
             switch(e.keyCode) {
 
               case 37: //left arrow
@@ -1128,6 +1166,9 @@
                 
                 gl.bindBuffer(gl.ARRAY_BUFFER, boSbNode.vbo);
                 gl.bufferSubData(gl.ARRAY_BUFFER, 4*7* boSbNode.numObj, new Float32Array(checkedNode));
+                break;
+                case 72: //help
+                    helpOn = !helpOn;
                 break;
             }
             e.preventDefault();
