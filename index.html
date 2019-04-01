@@ -1280,13 +1280,13 @@
             vec4 color3 = vec4(0);//vec4(0.05, 0.1, 0.1,0.0);
 
             if (dist<timeCriteria*3.0) {
-                gl_FragColor = vec4(mix(color1, color2, 0.3), alpha)+color3;
+                gl_FragColor = (vec4(mix(color1, color2, 0.3), alpha)+color3);//* (dist/(timeCriteria*3.0))*(dist/(timeCriteria*3.0))*(dist/(timeCriteria*3.0));
             } else if (dist<timeCriteria*6.0) {
-                gl_FragColor = vec4(mix(color1, color2, 0.6), alpha)+color3;
+                gl_FragColor = (vec4(mix(color1, color2, 0.6), alpha)+color3);//* (dist/(timeCriteria*6.0))*(dist/(timeCriteria*6.0))*(dist/(timeCriteria*6.0));
             } else if (dist<timeCriteria*9.0) {
-                gl_FragColor = vec4(mix(color1, color2, 0.8), alpha)+color3;
+                gl_FragColor = (vec4(mix(color1, color2, 0.8), alpha)+color3);//* (dist/(timeCriteria*9.0))*(dist/(timeCriteria*9.0))*(dist/(timeCriteria*9.0));
             } else if (dist<timeCriteria*12.0) {
-                gl_FragColor = vec4(mix(color1, color2, 1.0), alpha)+color3;
+                gl_FragColor = (vec4(mix(color1, color2, 1.0), alpha)+color3);//* (dist/(timeCriteria*12.0))*(dist/(timeCriteria*12.0))*(dist/(timeCriteria*12.0));
             }else {
                 discard;
             }
