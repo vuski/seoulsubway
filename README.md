@@ -6,5 +6,4 @@ Interactive Isochrone Map of Seoul Subway
 https://vuski.github.io/seoulsubway/
 
 다음의 주소에 관련 내용이 설명되어 있습니다.
-
-https://www.vw-lab.com/65
+https://www.vw-lab.com/68
