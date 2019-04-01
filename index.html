@@ -319,10 +319,10 @@
             
             
            
-          
+            
 
             if (helpOn) {
-                if (originNode>=0) {
+                
 
                     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);    
 
@@ -385,25 +385,25 @@
                     ctx.fillStyle = "rgba(150,150,150,1)";
                     ctx.fillText("https://www.vw-lab.com/65" ,15, scrH-20); 
 
+                    if (originNode>=0) {
+                        ctx.font = "bold 30px '맑은 고딕'";
+                        ctx.fillStyle = "rgba(255,255,255,1)";
+                        ctx.fillText(nodeData[originNode].ln+"/"+nodeData[originNode].nm
+                                        , (nodeData[originNode].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
+                                        ,  (nodeData[originNode].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
 
-                    ctx.font = "bold 30px '맑은 고딕'";
-                    ctx.fillStyle = "rgba(255,255,255,1)";
-                    ctx.fillText(nodeData[originNode].ln+"/"+nodeData[originNode].nm
-                                    , (nodeData[originNode].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
-                                    ,  (nodeData[originNode].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
 
 
+                        checkedNodeCurrentSet.forEach((value, key, s) => {
+                        ctx.font = "bold 20px '맑은 고딕'";
+                        ctx.fillStyle = "rgba(255,255,255,1)";
+                        ctx.fillText(nodeData[value].nm + " | "+ Math.floor(solution[value]/60) +"분"
+                                        , (nodeData[value].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
+                                        ,  (nodeData[value].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
 
-                    checkedNodeCurrentSet.forEach((value, key, s) => {
-                    ctx.font = "bold 20px '맑은 고딕'";
-                    ctx.fillStyle = "rgba(255,255,255,1)";
-                    ctx.fillText(nodeData[value].nm + " | "+ Math.floor(solution[value]/60) +"분"
-                                    , (nodeData[value].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
-                                    ,  (nodeData[value].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
-
-                    //console.log(value +" | " + nodeData[value].nm + "|"+ solution[value] );
-                    });
-                }
+                        //console.log(value +" | " + nodeData[value].nm + "|"+ solution[value] );
+                        });
+                    }
 
             }
             else {
@@ -422,23 +422,27 @@
                 ctx.fillStyle = "rgba(200,200,200,1)";
                 ctx.fillText("'h' key : 도움말",15, scrH-20); 
 
-                ctx.font = "bold 30px '맑은 고딕'";
-                ctx.fillStyle = "rgba(255,255,255,1)";
-                ctx.fillText(nodeData[originNode].ln+"/"+nodeData[originNode].nm
-                                , (nodeData[originNode].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
-                                ,  (nodeData[originNode].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
+                if (originNode>=0) {
+                        ctx.font = "bold 30px '맑은 고딕'";
+                        ctx.fillStyle = "rgba(255,255,255,1)";
+                        ctx.fillText(nodeData[originNode].ln+"/"+nodeData[originNode].nm
+                                        , (nodeData[originNode].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
+                                        ,  (nodeData[originNode].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
 
 
 
-                checkedNodeCurrentSet.forEach((value, key, s) => {
-                ctx.font = "bold 20px '맑은 고딕'";
-                ctx.fillStyle = "rgba(255,255,255,1)";
-                ctx.fillText(nodeData[value].nm + " | "+ Math.floor(solution[value]/60) +"분"
-                                , (nodeData[value].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
-                                ,  (nodeData[value].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
+                        checkedNodeCurrentSet.forEach((value, key, s) => {
+                        ctx.font = "bold 20px '맑은 고딕'";
+                        ctx.fillStyle = "rgba(255,255,255,1)";
+                        ctx.fillText(nodeData[value].nm + " | "+ Math.floor(solution[value]/60) +"분"
+                                        , (nodeData[value].x-cenX)/(maxX-minX)*(scrW/2)+(scrW/2)
+                                        ,  (nodeData[value].y-cenY)/(maxX-minX)*(scrH/2*whRatio)*-1+scrH/2-15); 
 
-                            });
+                        //console.log(value +" | " + nodeData[value].nm + "|"+ solution[value] );
+                        });
+                    }
             }
+        
 
 
            
@@ -1133,7 +1137,7 @@
 
         function keydown(e) {
 
-            console.log("keyCode :"+e.keyCode);
+            //console.log("keyCode :"+e.keyCode);
             switch(e.keyCode) {
 
               case 37: //left arrow
