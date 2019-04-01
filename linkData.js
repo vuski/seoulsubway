@@ -1,3 +1,5 @@
+// 이 데이터를 사용하실 경우, 코드에 다음의 주석을 반드시 남겨주시기 바랍니다.
+// source :  https://github.com/vuski/seoulsubway
 var linkDataRaw =[
 [0,1,240],
 [0,653,310],
