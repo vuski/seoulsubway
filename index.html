@@ -333,7 +333,7 @@
                 //ctx.fillStyle = "rgba(255,255,255,1)";                
                 //ctx.fillText(nodeData[originNode].ln+"/"+nodeData[originNode].nm, scrW/2,scrH/20);
                 ctx.font = "bold 40px '맑은 고딕'";        
-                ctx.fillStyle = "rgba(190,190,190,1)";
+                ctx.fillStyle = "rgba(220,220,220,1)";
                 ctx.fillText("수도권 지하철 시간 거리 지도 ver 0.9", scrW/2,30);
                 ctx.font = "bold 20px '맑은 고딕'";  
                 ctx.fillStyle = "rgba(150,150,150,1)";
@@ -370,6 +370,10 @@
                 ctx.font = "20px '맑은 고딕'";
                 ctx.fillStyle = "rgba(150,150,150,1)";
                 ctx.fillText("키보드 좌우 화살표키를 눌러 건설 예정 노선이 반영된 시간 거리 지도를 볼 수 있습니다" ,15, scrH-60); 
+
+                ctx.font = "14px '맑은 고딕'";
+                ctx.fillStyle = "rgba(150,150,150,1)";
+                ctx.fillText("*. 건설 예정 시기는 정확하지 않을 수 있습니다. 타당성 조사중이거나 건설 여부가 불투명한 노선도 포함되어 있습니다." ,15, scrH-45); 
 
                 ctx.font = "20px '맑은 고딕'";
                 ctx.fillStyle = "rgba(150,150,150,1)";
@@ -1205,7 +1209,7 @@
         precision highp float;
 
         varying float dist;
-        float alpha = 0.6;
+        float alpha = 1.0;
 
         vec4 colorFunc(vec4 source) {
             return source *vec4(vec3(6),1)*vec4(0.1);
@@ -1218,8 +1222,12 @@
         void main() {
             
             float timeCriteria = 600.0;
-            vec3 color1 = vec3(0,0,0 );
-            vec3 color2 = vec3(0.5, 0.5, 0.5);
+            
+            vec3 color1= vec3(0.313, 0.407, 0.674)*0.0002;
+            vec3 color2 = vec3(0.7, 0.7, 0.7)*0.5;
+            //vec3 color2 = vec3(0.482, 0.8, 0.768)*0.2;
+            //vec3 color1 = vec3(0.482, 0.8, 0.768);
+            //vec3 color2= vec3(0.941,0.976,0.909 );
             vec4 color3 = vec4(0);//vec4(0.05, 0.1, 0.1,0.0);
 
             if (dist<timeCriteria*3.0) {
