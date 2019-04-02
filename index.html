@@ -265,12 +265,35 @@
             //알아서 주사율 맞춰서 조정
 
             textCanvas.addEventListener("mousedown", mouseDown, false);
-            textCanvas.addEventListener("mouseup", mouseUp, false);
-            //canvas.addEventListener("mouseout", mouseUp, false);
-            textCanvas.addEventListener("mousemove", mouseMove, false);
-            textCanvas.addEventListener("touchmove", mouseMove, false);
-            textCanvas.addEventListener("wheel", mouseWheel, false);
-     
+            textCanvas.addEventListener("mouseup", mouseUp, false);            
+            textCanvas.addEventListener("mousemove", mouseMove, false);           
+            textCanvas.addEventListener("wheel", mouseWheel, false);     
+
+            //http://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html
+            // Set up touch events for mobile, etc
+            //textCanvas.addEventListener("touchstart", touchStart, false);
+            textCanvas.addEventListener("touchend", mouseUp, false);            
+            textCanvas.addEventListener("touchmove", mouseMove, false);           
+           
+/*
+            // Prevent scrolling when touching the canvas
+            document.body.addEventListener("touchstart", function (e) {
+                if (e.target == textCanvas) {
+                    e.preventDefault();
+                }
+            }, false);
+            document.body.addEventListener("touchend", function (e) {
+                if (e.target == textCanvas) {
+                    e.preventDefault();
+                }
+            }, false);
+            document.body.addEventListener("touchmove", function (e) {
+                if (e.target == textCanvas) {
+                    e.preventDefault();
+                }
+            }, false);
+*/
+
 
             window.addEventListener('keydown', keydown);
             
@@ -1114,7 +1137,7 @@
                 //console.log("mouseDown");
                 drag = true;
                 oldx = e.pageX, oldy = e.pageY;
-            } else if (e.button==0) {  //오른쪽 클릭
+            } else if (e.button==0) {  //왼쪽 클릭
                 //노드 체크
                 if (originNode>-1) {               
                     checkedNode[originNode] *= -1;
@@ -1150,7 +1173,13 @@
             //console.log(e.deltaX+","+e.deltaY);
         }
         
-
+        function touchStart(e) {
+            //console.log("mouseDown");
+            drag = true;
+            oldx = e.pageX, oldy = e.pageY;
+            e.preventDefault();
+            return false;
+        }
         function keydown(e) {
 
             //console.log("keyCode :"+e.keyCode);
