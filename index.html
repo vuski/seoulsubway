@@ -236,29 +236,39 @@
             setCSRGraph();
             
 
-               
-            
+
             //subway station shader
             shaderSbNode = new ShaderVars();
             boSbNode = new BufferObject();
             shaderSbNode.shader = getShader("sbNodeVertex", "sbNodeFragment");
             shaderSbNode.setUniformLoc();             
             setNodeDataToBuffer();
-            
+
 
             shaderSbLink = new ShaderVars();
             boSbLink = new BufferObject();
             shaderSbLink.shader = getShader("sbLinkVertex", "sbLinkFragment");
             shaderSbLink.setUniformLoc();             
             setLinkDataToBuffer();
-            
-            
+
+
             //isochronemap shader
             shaderIsochrone = new ShaderVars();
             boIsochrone = new BufferObject();
             shaderIsochrone.shader = getShader("isoVertex", "isoFragment");    
             shaderIsochrone.setUniformLoc();
             setIsochroneToBuffer();
+               
+
+            
+            
+            
+            
+
+            
+            
+            
+            
             
             resize(gl.canvas);
             
@@ -296,10 +306,7 @@
 
 
             window.addEventListener('keydown', keydown);
-            
-
-            
-           
+                
             requestAnimationFrame(render);
 
         }
@@ -314,10 +321,15 @@
             recalculateMaxY();            
             
             //gl.lineWidth(50);
+            //AttrLoc를 일단 모든 경우에 대해서 지정해 주어야 문제가 안 생김. 해결하려면 함수 구조체를 쓰지 말아야 함            
+            gl.vertexAttribPointer(boSbNode.colorAttrLoc, 3, gl.FLOAT, false, 0, 4*2* boSbNode.numObj);
+            gl.vertexAttribPointer(boSbNode.groupAttrLoc, 1, gl.FLOAT, false, 0, 4*5* boSbNode.numObj);
+            gl.vertexAttribPointer(boSbNode.idAttrLoc, 1, gl.FLOAT, false, 0, 4*6* boSbNode.numObj);
+            gl.vertexAttribPointer(boSbNode.checkedAttrLoc, 1, gl.FLOAT, false, 0, 4*7* boSbNode.numObj);
 
             
              //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-             gl.useProgram(shaderIsochrone.shader);
+            gl.useProgram(shaderIsochrone.shader);
             gl.uniform4f(shaderIsochrone.translation, cenX, cenY, maxX-minX, whRatio );
             gl.bindBuffer(gl.ARRAY_BUFFER, boIsochrone.vbo);
             gl.vertexAttribPointer(boIsochrone.posAttrLoc, 2, gl.FLOAT, false, 0, 0);
@@ -353,8 +365,7 @@
             gl.drawArrays(gl.POINTS, 0, boSbNode.numObj);
 
             
-            
-           
+
             
 
             if (helpOn) {
@@ -485,7 +496,7 @@
 
 
            
-            requestAnimationFrame(render);
+            //requestAnimationFrame(render);
         }
 
 
@@ -1125,6 +1136,7 @@
                     doSolveSSSP();
                 }   
             }
+            requestAnimationFrame(render);
             //console.log(e.pageX +"." + e.pageY);
             //console.log(1);
         }
@@ -1149,6 +1161,7 @@
             }
            
             e.preventDefault();
+            requestAnimationFrame(render);
             return false;
         }
 
@@ -1157,6 +1170,7 @@
             if (originNode>-1) {
 
             }
+            requestAnimationFrame(render);
         }
 
         function mouseWheel(e) {
@@ -1171,6 +1185,7 @@
                                 : (maxX-minX)/whRatio*(e.pageY-scrH/2)/(scrH/2)*0.2307692*e.deltaY/100;     
            
             //console.log(e.deltaX+","+e.deltaY);
+            requestAnimationFrame(render);
         }
         
         function touchStart(e) {
@@ -1178,6 +1193,7 @@
             drag = true;
             oldx = e.pageX, oldy = e.pageY;
             e.preventDefault();
+            requestAnimationFrame(render);
             return false;
         }
         function keydown(e) {
@@ -1220,6 +1236,7 @@
                     helpOn = !helpOn;
                 break;
             }
+            requestAnimationFrame(render);
             e.preventDefault();
 
         }
