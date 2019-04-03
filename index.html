@@ -339,7 +339,8 @@
    
             
 
-            gl.disable(gl.BLEND);
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
             gl.useProgram(shaderSbLink.shader);
             gl.uniform4f(shaderSbLink.translation, cenX, cenY, maxX-minX, whRatio );
             gl.uniform1f(shaderSbLink.drawGroup, drawGroup );
@@ -1521,11 +1522,13 @@
                     if (checked1 >0.0) {
                         if (abs(col1.w)<0.9) gl_FragColor = vec4(col1.xyz,1.0);
                         //gl_FragColor = vec4(col1.xyz,1.0);
-                        else discard;
+                        //else discard;
+                        else gl_FragColor = vec4(col1.xyz,1.0*(-25.0*abs(col1.w)+94.0));
                     }  else {
                         //gl_FragColor = vec4(col1.xyz,0.1);
-                        if (abs(col1.w)<0.3) gl_FragColor = vec4(col1.xyz,0.3)*0.6;
-                        else discard;
+                        if (abs(col1.w)<0.3) gl_FragColor = vec4(col1.xyz*0.6,1.0);
+                        //else discard;
+                        else gl_FragColor = vec4(col1.xyz*0.6,1.0*(-25.0*abs(col1.w)+8.5));
                     }   
                 } else {
                     discard;
