@@ -1203,7 +1203,7 @@
             switch(e.keyCode) {
 
               case 37: //left arrow
-                if (drawGroup==0) drawGroup = 21;
+                if (drawGroup==0) drawGroup = 11;
                 else drawGroup--;
                 refreshData();
                 setCSRGraph();
@@ -1212,7 +1212,7 @@
                 console.log(drawGroup);
                 break;
               case 39: //right arrow
-                if (drawGroup==21) drawGroup = 0;
+                if (drawGroup==11) drawGroup = 0;
                 else drawGroup++;
                 refreshData();
                 setCSRGraph();
